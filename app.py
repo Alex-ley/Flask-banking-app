@@ -105,7 +105,7 @@ def my_account():
     withdraw_form = WithdrawForm()
     deposit_form = DepositForm()
     transfer_form = TransferForm()
-    transactions = transactions.query.all()
+    transactions = Transaction.query.all()
 
     if form.validate_on_submit():
         id = form.id.data
