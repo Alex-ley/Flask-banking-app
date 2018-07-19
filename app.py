@@ -89,6 +89,9 @@ def create_account():
         new_account = Account(name,password,balance)
         db.session.add(new_account)
         db.session.commit()
+        new_transaction = Transaction('deposit','account opening',new_account.id,balance)
+        db.session.add(new_transaction)
+        db.session.commit()
 
         return redirect(url_for('my_account'))
 
