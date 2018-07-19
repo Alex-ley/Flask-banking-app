@@ -1,6 +1,7 @@
 import os
+from datetime import datetime
 from forms import  AddForm , DelForm, AddOwnerForm
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, session, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 # from sqlalchemy import event
@@ -25,9 +26,10 @@ class Account(db.Model):
 
     __tablename__ = 'accounts'
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.Text)
+    name = db.Column(db.String(80),unique=True)
     password = db.Column(db.Text) #To be HASHED
     balance = db.Column(db.Float)
+    active = db.Column(db.Boolean,default=True)
 
     def __init__(self,name, password, balance=0):
         self.name = name
@@ -36,6 +38,26 @@ class Account(db.Model):
 
     def __repr__(self):
         return f"Account name is {self.name} with account number {self.id}"
+
+class Transaction(db.Model):
+
+    __tablename__ = 'transactions'
+    id = db.Column(db.Integer,primary_key = True)
+    transaction_type = db.Column(db.Text)
+    description = db.Column(db.Text)
+    amount = db.Column(db.Float)
+    date = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
+    account_id = db.Column(db.Integer,db.ForeignKey('accounts.id'),nullable=False)
+    account = db.relationship('Account',backref=db.backref('transactions', lazy=True))
+
+    def __init__(self,transaction_type, description, amount=0, account_id):
+        self.transaction_type = transaction_type
+        self.description = description
+        self.amount = amount
+        self.account_id = account_id
+
+    def __repr__(self):
+        return f"Transaction {self.id} on {self.date}"
 
 # event.listen(
 #     Account.__table__,
@@ -51,9 +73,9 @@ class Account(db.Model):
 def index():
     return render_template('index.html')
 
-@app.route('/account', methods=['GET', 'POST'])
-def account():
-    form = AddForm()
+@app.route('/create_account', methods=['GET', 'POST'])
+def create_account():
+    form = CreateForm()
 
     if form.validate_on_submit():
         name = form.name.data
@@ -68,32 +90,51 @@ def account():
         db.session.add(new_account)
         db.session.commit()
 
-        return redirect(url_for('account'))
+        return redirect(url_for('my_account'))
 
-    return render_template('account.html',form=form)
+    return render_template('create_account.html',form=form)
 
-@app.route('/list')
-def list():
+@app.route('/list_accounts')
+def list_accounts():
     # Grab a list of accounts from database.
     accounts = Account.query.all()
-    return render_template('list.html', accounts=accounts)
+    return render_template('list_accounts.html', accounts=accounts)
 
-@app.route('/delete', methods=['GET', 'POST'])
-def del_account():
-    form = DelForm()
+@app.route('/my_account', methods=['GET', 'POST'])
+def my_account():
+    withdraw_form = WithdrawForm()
+    deposit_form = DepositForm()
+    transfer_form = TransferForm()
 
     if form.validate_on_submit():
         id = form.id.data
         password = form.id.data #To be HASHED
         account = Account.query.get(id)
         if account.password == password:
-            db.session.delete(pup)
+            db.session.delete(account)
             db.session.commit()
-            return redirect(url_for('list'))
+            return redirect(url_for('list_accounts'))
         else:
             return <h1>Invalid Account ID & Password combination</h1>
 
-    return render_template('delete.html',form=form)
+    return render_template('my_account.html',withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
+
+@app.route('/delete_account', methods=['GET', 'POST'])
+def delete_account():
+    form = DeleteForm()
+
+    if form.validate_on_submit():
+        id = form.id.data
+        password = form.id.data #To be HASHED
+        account = Account.query.get(id)
+        if account.password == password:
+            db.session.delete(account)
+            db.session.commit()
+            return redirect(url_for('list_accounts'))
+        else:
+            return <h1>Invalid Account ID & Password combination</h1>
+
+    return render_template('delete_account.html',form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)

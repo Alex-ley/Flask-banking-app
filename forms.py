@@ -3,21 +3,32 @@ from wtforms import StringField, IntegerField, SubmitField, FloatField, Password
 
 
 
-class AddForm(FlaskForm):
+class CreateForm(FlaskForm):
 
     name = StringField('Name of Account:')
     balance = FloatField('Opening balance (optional)')
     password = PasswordField('Account password')
+    pwd_confirm = PasswordField('Confirm account password')
     submit = SubmitField('Create Account')
 
-class ModifyForm(FlaskForm):
+class WithdrawForm(FlaskForm):
 
-    account_id = IntegerField("Account ID")
-    ammount = FloatField('Deposit / Withdraw Ammount')
-    deposit = SubmitField('Deposit Ammount')
+    ammount = FloatField('Withdraw Ammount')
     withdraw = SubmitField('Withdraw Ammount')
 
-class DelForm(FlaskForm):
+class DepositForm(FlaskForm):
+
+    ammount = FloatField('Withdraw Ammount')
+    deposit = SubmitField('Deposit Ammount')
+
+class TransferForm(FlaskForm):
+
+    account_id = IntegerField("Recipient's Account ID")
+    ammount = FloatField('Transfer Ammount')
+    password = PasswordField('Account password')
+    transfer = SubmitField('Transfer Ammount')
+
+class DeleteForm(FlaskForm):
 
     id = IntegerField('Account ID to Delete:')
     submit = SubmitField('Delete Account')
