@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from forms import  AddForm , DelForm, AddOwnerForm
+from forms import  CreateForm , WithdrawForm, DepositForm, TransferForm, DeleteForm
 from flask import Flask, session, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'mysecretkey'
         # SQL DATABASE AND MODELS
 
 ##########################################
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://alexley:MySQL_password@alexley.mysql.pythonanywhere-services.com/default'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://alexley:MySQL_password@alexley.mysql.pythonanywhere-services.com/alexley$bank'
 app.config['SQLALCHEMY_POOL_RECYCLE'] = 280
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -50,11 +50,11 @@ class Transaction(db.Model):
     account_id = db.Column(db.Integer,db.ForeignKey('accounts.id'),nullable=False)
     account = db.relationship('Account',backref=db.backref('transactions', lazy=True))
 
-    def __init__(self,transaction_type, description, amount=0, account_id):
+    def __init__(self,transaction_type, description, account_id, amount=0):
         self.transaction_type = transaction_type
         self.description = description
-        self.amount = amount
         self.account_id = account_id
+        self.amount = amount
 
     def __repr__(self):
         return f"Transaction {self.id} on {self.date}"
@@ -115,7 +115,7 @@ def my_account():
             db.session.commit()
             return redirect(url_for('list_accounts'))
         else:
-            return <h1>Invalid Account ID & Password combination</h1>
+            return '<h1>Invalid Account ID & Password combination</h1>'
 
     return render_template('my_account.html',withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
 
@@ -132,7 +132,7 @@ def delete_account():
             db.session.commit()
             return redirect(url_for('list_accounts'))
         else:
-            return <h1>Invalid Account ID & Password combination</h1>
+            return '<h1>Invalid Account ID & Password combination</h1>'
 
     return render_template('delete_account.html',form=form)
 
