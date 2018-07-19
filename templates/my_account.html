@@ -1,0 +1,20 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="jumbotron">
+      {% if session['username'] %}
+
+        <h1>Welcome to your bank account!</h1>
+        <br />
+        <h1>Your transactions</h1>
+        <ul>
+          {% for transaction in transactions %}
+            <li>{{transaction}}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <h1>Please log in!</h1>
+      {% endif %}
+    </div>
+{% endblock %}

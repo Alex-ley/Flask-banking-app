@@ -105,6 +105,7 @@ def my_account():
     withdraw_form = WithdrawForm()
     deposit_form = DepositForm()
     transfer_form = TransferForm()
+    transactions = transactions.query.all()
 
     if form.validate_on_submit():
         id = form.id.data
@@ -117,7 +118,7 @@ def my_account():
         else:
             return '<h1>Invalid Account ID & Password combination</h1>'
 
-    return render_template('my_account.html',withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
+    return render_template('my_account.html',transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
 
 @app.route('/delete_account', methods=['GET', 'POST'])
 def delete_account():
