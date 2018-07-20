@@ -20,9 +20,12 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
                 <a class="nav-item nav-link active" href="{{url_for('create_account')}}">Create Account<span class="sr-only">(current)</span></a>
+                {% if session['username'] %}
                 <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
-                <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
                 <a class="nav-item nav-link" href="{{url_for('my_account')}}">My Account</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
+                {% endif %}
                 <a class="nav-item nav-link" href="{{url_for('list_accounts')}}">List All Accounts</a>
                 <a class="nav-item nav-link disabled" href="{{url_for('delete_account')}}">Delete Account</a>
               </div>
