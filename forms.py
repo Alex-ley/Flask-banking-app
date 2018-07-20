@@ -11,6 +11,12 @@ class CreateForm(FlaskForm):
     pwd_confirm = PasswordField('Confirm account password')
     submit = SubmitField('Create Account')
 
+class LoginForm(FlaskForm):
+
+    id = IntegerField('Account ID:')
+    password = PasswordField('Account password')
+    submit = SubmitField('Login')
+
 class WithdrawForm(FlaskForm):
 
     ammount = FloatField('Withdraw Ammount')

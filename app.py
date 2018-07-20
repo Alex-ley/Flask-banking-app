@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from forms import  CreateForm , WithdrawForm, DepositForm, TransferForm, DeleteForm
+from forms import  CreateForm, LoginForm, WithdrawForm, DepositForm, TransferForm, DeleteForm
 from flask import Flask, session, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -97,6 +97,28 @@ def create_account():
         return redirect(url_for('my_account'))
 
     return render_template('create_account.html',form=form)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        id = form.id.data
+        password = form.password.data #To be HASHED
+        account = Account.query.get(id)
+        if account.password == password:
+            session['username'] = account.name
+            return redirect(url_for('my_account'))
+        else:
+            return '<h1>Invalid Account ID & Password combination</h1>'
+
+    return render_template('login.html',form=form)
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    session['username'] = None
+    return redirect(url_for('index'))
+
 
 @app.route('/list_accounts')
 def list_accounts():
