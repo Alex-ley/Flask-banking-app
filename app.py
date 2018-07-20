@@ -111,7 +111,7 @@ def my_account():
     transfer_form = TransferForm()
     transactions = Transaction.query.all()
     user = session['username']
-    if form.validate_on_submit():
+    if withdraw_form.validate_on_submit():
         id = form.id.data
         password = form.id.data #To be HASHED
         account = Account.query.get(id)
