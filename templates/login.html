@@ -1,0 +1,12 @@
+﻿{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Login to your bank account</h1>
+        <form method="POST">
+          {{ form.hidden_tag()}}
+          {{ form.id.label }}{{ form.id() }} <br/>
+          {{ form.password.label }}{{ form.password() }} <br/>
+          {{ form.submit() }}
+        </form>
+    </div>
+{% endblock %}
