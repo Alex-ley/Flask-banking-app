@@ -1,0 +1,13 @@
+﻿{% extends "base.html" %}
+{% block content %}
+    <div class="jumbotron">
+        <h1>Delete your bank account</h1>
+        <form method="POST">
+          {{ form.hidden_tag()}}
+          {{ form.id.label }}{{ form.id() }} <br/>
+          {{ form.password.label }}{{ form.password() }} <br/>
+          {{ form.pwd_confirm.label }}{{ form.pwd_confirm() }} <br/>
+          {{ form.submit() }}
+        </form>
+    </div>
+{% endblock %}

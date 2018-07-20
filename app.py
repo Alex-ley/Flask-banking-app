@@ -130,7 +130,7 @@ def delete_account():
 
     if form.validate_on_submit():
         id = form.id.data
-        password = form.id.data #To be HASHED
+        password = form.password.data #To be HASHED
         account = Account.query.get(id)
         if account.password == password:
             db.session.delete(account)

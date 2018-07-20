@@ -31,4 +31,6 @@ class TransferForm(FlaskForm):
 class DeleteForm(FlaskForm):
 
     id = IntegerField('Account ID to Delete:')
+    password = PasswordField('Account password')
+    pwd_confirm = PasswordField('Confirm account password')
     submit = SubmitField('Delete Account')
