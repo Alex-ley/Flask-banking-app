@@ -110,7 +110,7 @@ def my_account():
     deposit_form = DepositForm()
     transfer_form = TransferForm()
     transactions = Transaction.query.all()
-
+    user = session['username']
     if form.validate_on_submit():
         id = form.id.data
         password = form.id.data #To be HASHED
@@ -122,7 +122,7 @@ def my_account():
         else:
             return '<h1>Invalid Account ID & Password combination</h1>'
 
-    return render_template('my_account.html',transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
+    return render_template('my_account.html',user=user,transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
 
 @app.route('/delete_account', methods=['GET', 'POST'])
 def delete_account():
