@@ -57,7 +57,7 @@ class Transaction(db.Model):
         self.amount = amount
 
     def __repr__(self):
-        return f"Transaction {self.id} on {self.date}"
+        return f"Transaction {self.id}: {self.transaction_type} on {self.date}"
 
 # event.listen(
 #     Account.__table__,
