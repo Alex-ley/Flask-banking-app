@@ -121,7 +121,7 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/json/account/<name>')
-def json_names():
+def json_names(name):
     # accounts = Account.query.all() #.options(load_only('name'))
     # names_list = []
     # for account in accounts:
