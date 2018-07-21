@@ -11,13 +11,13 @@
         <form method="POST">
           {{ deposit_form.hidden_tag()}}
           {{ deposit_form.amount.label }}{{ deposit_form.amount() }}
-          {{ deposit_form.submit() }}
+          {{ deposit_form.deposit() }}
         </form>
         <h3>Withdraw Money</h3>
         <form method="POST">
           {{ withdraw_form.hidden_tag()}}
           {{ withdraw_form.amount.label }}{{ withdraw_form.amount() }}
-          {{ withdraw_form.submit() }}
+          {{ withdraw_form.withdraw() }}
         </form>
         <h3>Transfer Money</h3>
         <form method="POST">
@@ -25,7 +25,7 @@
           {{ transfer_form.account_id.label }}{{ transfer_form.account_id() }}<br/>
           {{ transfer_form.amount.label }}{{ transfer_form.amount() }}<br/>
           {{ transfer_form.password.label }}{{ transfer_form.password() }}<br/>
-          {{ transfer_form.submit() }}
+          {{ transfer_form.transfer() }}
         </form>
         <hr>
         <h2>Your transactions</h2>
