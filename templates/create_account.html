@@ -19,7 +19,7 @@
         if (name.value == '') {
           checker.innerHTML = '';
         } else{
-          fetch('/json/account/' + name.value).then(function(response){
+          fetch('/json/account/name/' + name.value).then(function(response){
             response.json().then(function(data){
 
               checker.innerHTML = data.name;

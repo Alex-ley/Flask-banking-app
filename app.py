@@ -129,7 +129,7 @@ def logout():
     session['username'] = None
     return redirect(url_for('index'))
 
-@app.route('/json/account/<name>')
+@app.route('/json/account/name/<name>')
 def json_names(name):
     # accounts = Account.query.all() #.options(load_only('name'))
     # names_list = []
@@ -141,7 +141,7 @@ def json_names(name):
     else:
         return jsonify({'name': 'available'})
 
-@app.route('/json/account/<account_id>')
+@app.route('/json/account/id/<account_id>')
 def json_account_id(account_id):
     if Account.query.filter_by(id=account_id).first():
         return jsonify({'account': 'valid account ID'})

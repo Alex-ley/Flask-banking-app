@@ -49,7 +49,7 @@
           checker.innerHTML = '';
           transfer.disabled = true;
         } else{
-          fetch('/json/account/' + account_id.value).then(function(response){
+          fetch('/json/account/id/' + account_id.value).then(function(response){
             response.json().then(function(data){
 
               checker.innerHTML = data.account;
