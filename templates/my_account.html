@@ -22,7 +22,7 @@
         <h3>Transfer Money</h3>
         <form method="POST">
           {{ transfer_form.hidden_tag()}}
-          {{ transfer_form.account_id.label }}{{ transfer_form.account_id() }}<br/>
+          {{ transfer_form.account_id.label }}{{ transfer_form.account_id() }} <span id="id-checker"></span><br/>
           {{ transfer_form.amount.label }}{{ transfer_form.amount() }}<br/>
           {{ transfer_form.password.label }}{{ transfer_form.password() }}<br/>
           {{ transfer_form.transfer() }}
@@ -39,4 +39,31 @@
         <h1>Please log in!</h1>
       {% endif %}
     </div>
+    <script>
+      let account_id = document.getElementById('account_id');
+      let checker = document.getElementById('id-checker');
+      let transfer = document.getElementById('transfer');
+
+      name.onkeyup = function(){
+        if (account_id.value == '') {
+          checker.innerHTML = '';
+          transfer.disabled = true;
+        } else{
+          fetch('/json/account/' + account_id.value).then(function(response){
+            response.json().then(function(data){
+
+              checker.innerHTML = data.account;
+              if (data.account == 'valid account ID'){
+                checker.style.color = 'green';
+                transfer.disabled = false;
+              } else{
+                checker.style.color = 'red';
+                transfer.disabled = true;
+              }
+            });
+          });
+        }
+      }
+
+    </script>
 {% endblock %}
