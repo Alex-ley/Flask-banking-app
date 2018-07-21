@@ -60,6 +60,7 @@
       let account_id = document.getElementById('account_id');
       let checker = document.getElementById('id-checker');
       let transfer = document.getElementById('transfer');
+      transfer.disabled = true;
 
       account_id.onkeyup = function(){
         if (account_id.value == '') {

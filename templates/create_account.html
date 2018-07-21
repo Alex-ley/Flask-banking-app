@@ -14,10 +14,12 @@
     <script>
       let name = document.getElementById('name');
       let checker = document.getElementById('name-checker');
+      let submit = document.getElementById('submit');
 
       name.onkeyup = function(){
         if (name.value == '') {
           checker.innerHTML = '';
+          submit.disabled = true;
         } else{
           fetch('/json/account/name/' + name.value).then(function(response){
             response.json().then(function(data){
@@ -25,8 +27,10 @@
               checker.innerHTML = data.name;
               if (data.name == 'available'){
                 checker.style.color = 'green';
+                submit.disabled = false;
               } else{
                 checker.style.color = 'red';
+                submit.disabled = true;
               }
             });
           });
