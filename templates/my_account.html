@@ -6,6 +6,7 @@
         <h1>Welcome to your bank account!</h1>
         <br/>
         <h2>Your Account ID {{ account.id }} has a balance of $ {{ account.balance }}</h2>
+        <hr>
         <h3>Deposit Money</h3>
         <form method="POST">
           {{ deposit_form.hidden_tag()}}

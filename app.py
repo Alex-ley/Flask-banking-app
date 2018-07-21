@@ -32,6 +32,15 @@ class Account(db.Model):
     balance = db.Column(db.Float)
     active = db.Column(db.Boolean,default=True)
 
+    def deposit_withdraw(self,type,amount):
+        if type = 'withdraw':
+            amount = -1 * amount
+        if self.balance + amount < 0:
+            return False #Unsuccessful
+        else:
+            self.balance += amount
+            return True #Successful
+
     def __init__(self,name, password, balance=0):
         self.name = name
         self.password = generate_password_hash(password) #HASHED
@@ -150,15 +159,27 @@ def my_account():
         id = account.id
         amount = deposit_form.amount.data
         account = Account.query.get(id)
-        db.session.commit()
-        return redirect(url_for('my_account'))
+        if account.deposit_withdraw('deposit',amount):
+            new_transaction = Transaction('deposit','self deposit',account.id,amount)
+            db.session.add(new_transaction)
+            db.session.commit()
+            return redirect(url_for('my_account'))
+        else:
+            #flash = you do not have sufficient funds to perform this operation
+            return redirect(url_for('my_account'))
 
     if withdraw_form.validate_on_submit():
         id = account.id
         amount = withdraw_form.amount.data
         account = Account.query.get(id)
-        db.session.commit()
-        return redirect(url_for('my_account'))
+        if account.deposit_withdraw('withdraw',amount):
+            new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
+            db.session.add(new_transaction)
+            db.session.commit()
+            return redirect(url_for('my_account'))
+        else:
+            #flash = you do not have sufficient funds to perform this operation
+            return redirect(url_for('my_account'))
 
     if transfer_form.validate_on_submit():
         id = form.id.data
