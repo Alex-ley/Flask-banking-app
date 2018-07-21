@@ -45,6 +45,7 @@
               <th scope="row">{{ transaction.id }}</th>
               <td>{{ transaction.transaction_type }}</td>
               <td>{{ transaction.description }}</td>
+              <td>${{ transaction.amount }}</td>
               <td>{{ transaction.date }}</td>
             </tr>
             {% endfor %}
