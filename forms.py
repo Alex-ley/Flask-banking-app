@@ -13,30 +13,30 @@ class CreateForm(FlaskForm):
 
 class LoginForm(FlaskForm):
 
-    id = IntegerField('Account ID:')
-    password = PasswordField('Account password')
+    id = IntegerField('Account ID: ')
+    password = PasswordField('Account password: ')
     submit = SubmitField('Login')
 
 class WithdrawForm(FlaskForm):
 
-    amount = FloatField('Withdraw Amount')
+    amount = FloatField('Withdraw Amount: ')
     submit = SubmitField('Withdraw Amount')
 
 class DepositForm(FlaskForm):
 
-    amount = FloatField('Withdraw Amount')
+    amount = FloatField('Deposit Amount: ')
     submit = SubmitField('Deposit Amount')
 
 class TransferForm(FlaskForm):
 
-    account_id = IntegerField("Recipient's Account ID")
-    amount = FloatField('Transfer Amount')
-    password = PasswordField('Account password')
+    account_id = IntegerField("Recipient's Account ID: ")
+    amount = FloatField('Transfer Amount: ')
+    password = PasswordField('Account password: ')
     submit = SubmitField('Transfer Amount')
 
 class DeleteForm(FlaskForm):
 
-    id = IntegerField('Account ID to Delete:')
-    password = PasswordField('Account password')
-    pwd_confirm = PasswordField('Confirm account password')
+    id = IntegerField('Account ID to Delete: ')
+    password = PasswordField('Account password: ')
+    pwd_confirm = PasswordField('Confirm account password: ')
     submit = SubmitField('Delete Account')
