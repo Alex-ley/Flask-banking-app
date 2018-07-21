@@ -16,17 +16,21 @@
       let checker = document.getElementById('name-checker');
 
       name.onkeyup = function(){
-        fetch('/json/account/' + name.value).then(function(response){
-          response.json().then(function(data){
+        if (name.value == '') {
+          checker.innerHTML = '';
+        } else{
+          fetch('/json/account/' + name.value).then(function(response){
+            response.json().then(function(data){
 
-            checker.innerHTML = data.name;
-            if (data.name == 'available'){
-              checker.style.color = 'red';
-            } else{
-              checker.style.color = 'black';
-            }
+              checker.innerHTML = data.name;
+              if (data.name == 'available'){
+                checker.style.color = 'green';
+              } else{
+                checker.style.color = 'red';
+              }
+            });
           });
-        });
+        }
       }
 
     </script>
