@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from forms import  CreateForm, LoginForm, WithdrawForm, DepositForm, TransferForm, DeleteForm
-from flask import Flask, session, render_template, url_for, redirect
+from flask import Flask, session, render_template, url_for, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
