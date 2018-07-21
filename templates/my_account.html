@@ -29,11 +29,27 @@
         </form>
         <hr>
         <h2>Your transactions</h2>
-        <ul>
-          {% for transaction in transactions %}
-            <li>{{transaction}}</li>
-          {% endfor %}
-        </ul>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Type</th>
+              <th scope="col">Description</th>
+              <th scope="col">Amount</th>
+              <th scope="col">DateTime</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for transaction in transactions %}
+            <tr>
+              <th scope="row">{{ transaction.id }}</th>
+              <td>{{ transaction.transaction_type }}</td>
+              <td>{{ transaction.description }}</td>
+              <td>{{ transaction.date }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
       {% else %}
         <h1>Please log in!</h1>
