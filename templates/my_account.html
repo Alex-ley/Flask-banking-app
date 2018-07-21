@@ -4,13 +4,36 @@
       {% if user %}
 
         <h1>Welcome to your bank account!</h1>
-        <br />
+        <br/>
+        <h1>Your Account ID {{ account.id }} has a balance of ${{ account.balance }}</h1>
+        <h1>Deposit Money</h1>
+        <form method="POST">
+          {{ deposit_form.hidden_tag()}}
+          {{ deposit_form.amount.label }}{{ deposit_form.amount() }}
+          {{ deposit_form.submit() }}
+        </form>
+        <h1>Withdraw Money</h1>
+        <form method="POST">
+          {{ withdraw_form.hidden_tag()}}
+          {{ withdraw_form.amount.label }}{{ withdraw_form.amount() }}
+          {{ withdraw_form.submit() }}
+        </form>
+        <h1>Transfer Money</h1>
+        <form method="POST">
+          {{ transfer_form.hidden_tag()}}
+          {{ transfer_form.account_id.label }}{{ transfer_form.account_id() }}
+          {{ transfer_form.amount.label }}{{ transfer_form.amount() }}
+          {{ transfer_form.password.label }}{{ transfer_form.password() }}
+          {{ transfer_form.submit() }}
+        </form>
+        <hr>
         <h1>Your transactions</h1>
         <ul>
           {% for transaction in transactions %}
             <li>{{transaction}}</li>
           {% endfor %}
         </ul>
+
       {% else %}
         <h1>Please log in!</h1>
       {% endif %}

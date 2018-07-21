@@ -34,7 +34,7 @@ class Account(db.Model):
 
     def __init__(self,name, password, balance=0):
         self.name = name
-        self.password = password #To be HASHED
+        self.password = generate_password_hash(password) #HASHED
         self.balance = balance
 
     def __repr__(self):
@@ -107,7 +107,7 @@ def login():
         id = form.id.data
         password = form.password.data #To be HASHED
         account = Account.query.get(id)
-        if account.password == password:
+        if check_password_hash(account.password,password):
             session['username'] = account.name
             return redirect(url_for('my_account'))
         else:
@@ -143,20 +143,21 @@ def my_account():
     withdraw_form = WithdrawForm()
     deposit_form = DepositForm()
     transfer_form = TransferForm()
-    transactions = Transaction.query.all()
     user = session['username']
+    transactions = Transaction.query.filter_by(name=user)
+    account = Account.query.filter_by(name=user)
     if withdraw_form.validate_on_submit():
         id = form.id.data
         password = form.id.data #To be HASHED
         account = Account.query.get(id)
-        if account.password == password:
+        if check_password_hash(account.password,password):
             db.session.delete(account)
             db.session.commit()
             return redirect(url_for('list_accounts'))
         else:
             return '<h1>Invalid Account ID & Password combination</h1>'
 
-    return render_template('my_account.html',user=user,transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
+    return render_template('my_account.html',user=user,account=account,transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
 
 @app.route('/delete_account', methods=['GET', 'POST'])
 def delete_account():
@@ -166,7 +167,7 @@ def delete_account():
         id = form.id.data
         password = form.password.data #To be HASHED
         account = Account.query.get(id)
-        if account.password == password:
+        if check_password_hash(account.password,password):
             #db.session.delete(account)
             account.active = False
             db.session.commit()
