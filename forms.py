@@ -20,19 +20,19 @@ class LoginForm(FlaskForm):
 class WithdrawForm(FlaskForm):
 
     amount = FloatField('Withdraw Amount: ', [InputRequired()])
-    submit = SubmitField('Withdraw Amount')
+    withdraw = SubmitField('Withdraw Amount')
 
 class DepositForm(FlaskForm):
 
     amount = FloatField('Deposit Amount: ', [InputRequired()])
-    submit = SubmitField('Deposit Amount')
+    deposit = SubmitField('Deposit Amount')
 
 class TransferForm(FlaskForm):
 
     account_id = IntegerField("Recipient's Account ID: ", [InputRequired()])
     amount = FloatField('Transfer Amount: ', [InputRequired()])
     password = PasswordField('Account password: ', [InputRequired()])
-    submit = SubmitField('Transfer Amount')
+    transfer = SubmitField('Transfer Amount')
 
 class DeleteForm(FlaskForm):
 

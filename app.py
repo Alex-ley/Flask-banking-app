@@ -156,7 +156,7 @@ def my_account():
     account = Account.query.filter_by(name=user).first()
     transactions = Transaction.query.filter_by(account_id=account.id)
 
-    if deposit_form.submit.data and deposit_form.validate():
+    if deposit_form.deposit.data and deposit_form.validate():
         id = account.id
         amount = deposit_form.amount.data
         account = Account.query.get(id)
@@ -168,7 +168,7 @@ def my_account():
         else:
             #flash = you do not have sufficient funds to perform this operation
             return redirect(url_for('my_account'))
-    elif withdraw_form.submit.data and withdraw_form.validate():
+    elif withdraw_form.withdraw.data and withdraw_form.validate():
         id = account.id
         amount = withdraw_form.amount.data
         account = Account.query.get(id)
@@ -181,7 +181,7 @@ def my_account():
         else:
             #flash = you do not have sufficient funds to perform this operation
             return redirect(url_for('my_account'))
-    elif transfer_form.submit.data and transfer_form.validate():
+    elif transfer_form.transfer.data and transfer_form.validate():
         id = account.id
         amount = transfer_form.amount.data
         acount_id = transfer_form.acount_id.data
