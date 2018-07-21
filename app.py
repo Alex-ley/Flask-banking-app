@@ -156,21 +156,6 @@ def my_account():
     account = Account.query.filter_by(name=user).first()
     transactions = Transaction.query.filter_by(account_id=account.id)
 
-
-    if withdraw_form.validate_on_submit():
-        id = account.id
-        amount = withdraw_form.amount.data
-        account = Account.query.get(id)
-        if account.deposit_withdraw('withdraw',amount):
-            amount *= -1
-            new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
-            db.session.add(new_transaction)
-            db.session.commit()
-            return redirect(url_for('my_account'))
-        else:
-            #flash = you do not have sufficient funds to perform this operation
-            return redirect(url_for('my_account'))
-
     if deposit_form.validate_on_submit():
         id = account.id
         amount = deposit_form.amount.data
@@ -183,17 +168,44 @@ def my_account():
         else:
             #flash = you do not have sufficient funds to perform this operation
             return redirect(url_for('my_account'))
-
-    if transfer_form.validate_on_submit():
-        id = form.id.data
-        password = form.id.data #To be HASHED
+    elif withdraw_form.validate_on_submit():
+        id = account.id
+        amount = withdraw_form.amount.data
         account = Account.query.get(id)
-        if check_password_hash(account.password,password):
-            db.session.delete(account)
+        if account.deposit_withdraw('withdraw',amount):
+            amount *= -1
+            new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
+            db.session.add(new_transaction)
             db.session.commit()
             return redirect(url_for('my_account'))
         else:
-            return '<h1>Invalid Account ID & Password combination</h1>'
+            #flash = you do not have sufficient funds to perform this operation
+            return redirect(url_for('my_account'))
+    elif transfer_form.validate_on_submit():
+        id = account.id
+        amount = transfer_form.amount.data
+        acount_id = transfer_form.acount_id.data
+        password = form.password.data #To be HASHED
+        account = Account.query.get(id)
+        if check_password_hash(account.password,password):
+            if account.deposit_withdraw('withdraw',amount):
+                amount *= -1
+                new_transaction = Transaction('transfer out',f'transfer to account {account_id}',account.id,amount)
+                db.session.add(new_transaction)
+                recipient = Account.query.get(account_id)
+                if recipient.deposit_withdraw('deposit',amount):
+                    new_transaction2 = Transaction('transfer in',f'transfer from account {account.id}',account_id,amount)
+                    db.session.add(new_transaction2)
+                    db.session.commit()
+                    return redirect(url_for('my_account'))
+                else:
+                    #flash = you do not have sufficient funds to perform this operation
+                    return redirect(url_for('my_account'))
+            else:
+                #flash = you do not have sufficient funds to perform this operation
+                return redirect(url_for('my_account'))
+        else:
+            return '<h1>Invalid Account Password</h1>'
 
     return render_template('my_account.html',user=user,account=account,transactions=transactions,withdraw_form=withdraw_form,deposit_form=deposit_form,transfer_form=transfer_form)
 
