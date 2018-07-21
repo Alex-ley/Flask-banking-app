@@ -145,15 +145,29 @@ def my_account():
     transfer_form = TransferForm()
     user = session['username']
     transactions = Transaction.query.filter_by(name=user)
-    account = Account.query.filter_by(name=user)
+    account = Account.query.filter_by(name=user).first()
+    if deposit_form.validate_on_submit():
+        id = account.id
+        amount = deposit_form.amount.data
+        account = Account.query.get(id)
+        db.session.commit()
+        return redirect(url_for('my_account'))
+
     if withdraw_form.validate_on_submit():
+        id = account.id
+        amount = withdraw_form.amount.data
+        account = Account.query.get(id)
+        db.session.commit()
+        return redirect(url_for('my_account'))
+
+    if transfer_form.validate_on_submit():
         id = form.id.data
         password = form.id.data #To be HASHED
         account = Account.query.get(id)
         if check_password_hash(account.password,password):
             db.session.delete(account)
             db.session.commit()
-            return redirect(url_for('list_accounts'))
+            return redirect(url_for('my_account'))
         else:
             return '<h1>Invalid Account ID & Password combination</h1>'
 
