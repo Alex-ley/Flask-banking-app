@@ -161,7 +161,7 @@ def my_account():
     transfer_form = TransferForm()
     user = session['username']
     account = Account.query.filter_by(name=user).first()
-    transactions = Transaction.query.filter_by(account_id=account.id)
+    transactions = Transaction.query.filter_by(account_id=account.id).order_by(Transaction.date.desc())
 
     if deposit_form.deposit.data and deposit_form.validate():
         id = account.id
