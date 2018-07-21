@@ -16,9 +16,10 @@
       let checker = document.getElementById('name-checker');
 
       name.onchange = function(){
-        fetch('/json/account/'+ name.value).then(function(response){
+        fetch('/json/account/' + name.value).then(function(response){
           response.json().then(function(data){
-            checker.innerHTML = 'received';
+
+            checker.innerHTML = data.name;
 
           });
         });
