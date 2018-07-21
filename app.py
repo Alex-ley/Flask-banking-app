@@ -34,7 +34,7 @@ class Account(db.Model):
 
     def deposit_withdraw(self,type,amount):
         if type == 'withdraw':
-            amount = -1 * amount
+            amount *= -1
         if self.balance + amount < 0:
             return False #Unsuccessful
         else:
@@ -173,6 +173,7 @@ def my_account():
         amount = withdraw_form.amount.data
         account = Account.query.get(id)
         if account.deposit_withdraw('withdraw',amount):
+            amount *= -1
             new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
             db.session.add(new_transaction)
             db.session.commit()
