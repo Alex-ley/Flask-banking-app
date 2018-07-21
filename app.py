@@ -144,8 +144,8 @@ def my_account():
     deposit_form = DepositForm()
     transfer_form = TransferForm()
     user = session['username']
-    transactions = Transaction.query.filter_by(name=user)
     account = Account.query.filter_by(name=user).first()
+    transactions = Transaction.query.filter_by(account_id=account.id)
     if deposit_form.validate_on_submit():
         id = account.id
         amount = deposit_form.amount.data
