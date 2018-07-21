@@ -191,7 +191,7 @@ def my_account():
     elif transfer_form.transfer.data and transfer_form.validate():
         id = account.id
         amount = transfer_form.amount.data
-        acount_id = transfer_form.acount_id.data
+        account_id = transfer_form.account_id.data
         password = transfer_form.password.data #To be HASHED
         account = Account.query.get(id)
         if check_password_hash(account.password,password):
