@@ -33,7 +33,7 @@ class Account(db.Model):
     active = db.Column(db.Boolean,default=True)
 
     def deposit_withdraw(self,type,amount):
-        if type = 'withdraw':
+        if type == 'withdraw':
             amount = -1 * amount
         if self.balance + amount < 0:
             return False #Unsuccessful
