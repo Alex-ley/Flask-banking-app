@@ -4,11 +4,25 @@
         <h1>Create a bank account today!</h1>
         <form method="POST">
           {{ form.hidden_tag()}}
-          {{ form.name.label }}{{ form.name() }} <br/>
+          {{ form.name.label }}{{ form.name() }} <br/> <div id="name-checker"></div>
           {{ form.balance.label }}{{ form.balance() }} <br/>
           {{ form.password.label }}{{ form.password() }} <br/>
           {{ form.pwd_confirm.label }}{{ form.pwd_confirm() }} <br/>
           {{ form.submit() }}
         </form>
     </div>
+    <script>
+      let name = document.getElementById('name');
+      let checker = document.getElementById('name-checker');
+
+      name.onchange = function(){
+        fetch('/json/account/'+ name.value).then(function(response){
+          response.json().then(function(data){
+            checker.innerHTML = 'received';
+
+          });
+        });
+      }
+
+    </script>
 {% endblock %}

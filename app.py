@@ -4,6 +4,7 @@ from forms import  CreateForm, LoginForm, WithdrawForm, DepositForm, TransferFor
 from flask import Flask, session, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash, check_password_hash
 # from sqlalchemy import event
 # from sqlalchemy import DDL
 
@@ -119,11 +120,15 @@ def logout():
     session['username'] = None
     return redirect(url_for('index'))
 
+@app.route('/json/account/names')
+def json_email():
+    names = Account.query.all().options(load_only('name'))
+    return jsonify({'names': names})
 
 @app.route('/list_accounts')
 def list_accounts():
     # Grab a list of accounts from database.
-    accounts = Account.query.all()
+    accounts = Account.query.filter_by(active=True)
     return render_template('list_accounts.html', accounts=accounts)
 
 @app.route('/my_account', methods=['GET', 'POST'])
@@ -155,7 +160,8 @@ def delete_account():
         password = form.password.data #To be HASHED
         account = Account.query.get(id)
         if account.password == password:
-            db.session.delete(account)
+            #db.session.delete(account)
+            account.active = False
             db.session.commit()
             return redirect(url_for('list_accounts'))
         else:
