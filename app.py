@@ -142,7 +142,7 @@ def json_names(name):
         return jsonify({'name': 'available'})
 
 @app.route('/json/account/<account_id>')
-def json_names(account_id):
+def json_account_id(account_id):
     if Account.query.filter_by(id=account_id).first():
         return jsonify({'account': 'valid account ID'})
     else:
