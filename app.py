@@ -120,14 +120,17 @@ def logout():
     session['username'] = None
     return redirect(url_for('index'))
 
-@app.route('/json/account/names')
+@app.route('/json/account/<name>')
 def json_names():
-    accounts = Account.query.all() #.options(load_only('name'))
-    names_list = []
-    for account in accounts:
-        names_list.append(account.name)
-
-    return jsonify({'names': names_list})
+    # accounts = Account.query.all() #.options(load_only('name'))
+    # names_list = []
+    # for account in accounts:
+    #     names_list.append(account.name)
+    # return jsonify({'names': names_list})
+    if Account.query.filter_by(name=name).first():
+        return jsonify({'name': 'taken'})
+    else:
+        return jsonify({'name': 'available'})
 
 @app.route('/list_accounts')
 def list_accounts():
