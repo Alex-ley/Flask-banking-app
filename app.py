@@ -180,8 +180,7 @@ def my_account():
         amount = withdraw_form.amount.data
         account = Account.query.get(id)
         if account.deposit_withdraw('withdraw',amount):
-            amount *= -1
-            new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
+            new_transaction = Transaction('withdraw','self withdraw',account.id,(amount*(-1)))
             db.session.add(new_transaction)
             db.session.commit()
             return redirect(url_for('my_account'))
@@ -196,8 +195,7 @@ def my_account():
         account = Account.query.get(id)
         if check_password_hash(account.password,password):
             if account.deposit_withdraw('withdraw',amount):
-                amount *= -1
-                new_transaction = Transaction('transfer out',f'transfer to account {account_id}',account.id,amount)
+                new_transaction = Transaction('transfer out',f'transfer to account {account_id}',account.id,(amount*(-1)))
                 db.session.add(new_transaction)
                 recipient = Account.query.get(account_id)
                 if recipient.deposit_withdraw('deposit',amount):
