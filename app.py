@@ -124,7 +124,7 @@ def logout():
 def json_names():
     accounts = Account.query.all() #.options(load_only('name'))
     names_list = []
-    for each account in accounts:
+    for account in accounts:
         names_list.append(account.name)
 
     return jsonify({'names': names_list})
