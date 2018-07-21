@@ -192,7 +192,7 @@ def my_account():
         id = account.id
         amount = transfer_form.amount.data
         acount_id = transfer_form.acount_id.data
-        password = form.password.data #To be HASHED
+        password = transfer_form.password.data #To be HASHED
         account = Account.query.get(id)
         if check_password_hash(account.password,password):
             if account.deposit_withdraw('withdraw',amount):
