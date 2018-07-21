@@ -155,18 +155,7 @@ def my_account():
     user = session['username']
     account = Account.query.filter_by(name=user).first()
     transactions = Transaction.query.filter_by(account_id=account.id)
-    if deposit_form.validate_on_submit():
-        id = account.id
-        amount = deposit_form.amount.data
-        account = Account.query.get(id)
-        if account.deposit_withdraw('deposit',amount):
-            new_transaction = Transaction('deposit','self deposit',account.id,amount)
-            db.session.add(new_transaction)
-            db.session.commit()
-            return redirect(url_for('my_account'))
-        else:
-            #flash = you do not have sufficient funds to perform this operation
-            return redirect(url_for('my_account'))
+
 
     if withdraw_form.validate_on_submit():
         id = account.id
@@ -175,6 +164,19 @@ def my_account():
         if account.deposit_withdraw('withdraw',amount):
             amount *= -1
             new_transaction = Transaction('withdraw','self withdraw',account.id,amount)
+            db.session.add(new_transaction)
+            db.session.commit()
+            return redirect(url_for('my_account'))
+        else:
+            #flash = you do not have sufficient funds to perform this operation
+            return redirect(url_for('my_account'))
+
+    if deposit_form.validate_on_submit():
+        id = account.id
+        amount = deposit_form.amount.data
+        account = Account.query.get(id)
+        if account.deposit_withdraw('deposit',amount):
+            new_transaction = Transaction('deposit','self deposit',account.id,amount)
             db.session.add(new_transaction)
             db.session.commit()
             return redirect(url_for('my_account'))
