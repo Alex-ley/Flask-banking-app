@@ -15,6 +15,9 @@
       let name = document.getElementById('name');
       let checker = document.getElementById('name-checker');
       let submit = document.getElementById('submit');
+      document.onload = function(){
+        submit.disabled = true;
+      };
 
       name.onkeyup = function(){
         if (name.value == '') {
