@@ -24,7 +24,7 @@
                 <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout<span class="sr-only"></span></a>
                 {% else %}
                 <a class="nav-item nav-link" href="{{url_for('create_account')}}">Create Account<span class="sr-only"></span></a>
-                <a class="nav-item nav-link" href="{{url_for('login')}}">Login<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="{{url_for('login')}}">Login<span class="sr-only"></span></a>
                 {% endif %}
                 <a class="nav-item nav-link" href="{{url_for('list_accounts')}}">List All Accounts<span class="sr-only"></span></a>
                 <a class="nav-item nav-link disabled" href="{{url_for('delete_account')}}">Delete Account<span class="sr-only"></span></a>
@@ -44,8 +44,8 @@
               var href = anchors[i].getAttribute('href');
               if (href == pathname) {
                 anchors[i].setAttribute('class', 'nav-item nav-link active');
-                var sr_only = anchors[i].getElementByTagName('span');
-                sr_only.innerHTML = "(Current)";
+                var sr_only = anchors[i].getElementsByTagName('span');
+                sr_only[0].innerHTML = "(Current)";
               }
               else{
                 anchors[i].setAttribute('class', 'nav-item nav-link');
