@@ -21,9 +21,9 @@
               <div class="navbar-nav">
                 {% if session['username'] %}
                 <a class="nav-item nav-link" href="{{url_for('my_account')}}">My Account</a>
-                <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
+                <a class="nav-item nav-link active" href="{{url_for('logout')}}">Logout</a>
                 {% else %}
-                <a class="nav-item nav-link active" href="{{url_for('create_account')}}">Create Account<span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="{{url_for('create_account')}}">Create Account<span class="sr-only">(current)</span></a>
                 <a class="nav-item nav-link" href="{{url_for('login')}}">Login</a>
                 {% endif %}
                 <a class="nav-item nav-link" href="{{url_for('list_accounts')}}">List All Accounts</a>
@@ -36,6 +36,19 @@
 
 
         {% endblock %}
-
+        <script>
+           var pathname = window.location.pathname;
+           var nav = document.querySelector('.navbar-nav');
+            var anchors = nav.getElementsByTagName('a');
+            for (var i = 0; i < anchors.length; i += 1) {
+              var href = anchors[i].getAttribute('href');
+              if (href == pathname) {
+                anchors[i].setAttribute('class', 'nav-item nav-link active');
+              }
+              else{
+                anchors[i].setAttribute('class', 'nav-item nav-link');
+              }
+            }
+        </script>
     </body>
 </html>
