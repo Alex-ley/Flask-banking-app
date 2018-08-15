@@ -2,12 +2,30 @@
 {% block content %}
     <div class="jumbotron">
         <h1>Delete your bank account</h1>
-        <form method="POST">
-          {{ form.hidden_tag()}}
-          {{ form.id.label }}{{ form.id() }} <br/>
-          {{ form.password.label }}{{ form.password() }} <br/>
-          {{ form.pwd_confirm.label }}{{ form.pwd_confirm() }} <br/>
-          {{ form.submit() }}
-        </form>
+        <div style="max-width: 450px;">
+          <form method="POST">
+            {{ form.hidden_tag()}}
+            <div class="form-group">
+              <strong>
+                {{ form.id.label }}
+              </strong>
+              {{ form.id(class="form-control") }}
+              <small></small>
+            </div>
+            <div class="form-group">
+              <strong>
+                {{ form.password.label }}
+              </strong>
+              {{ form.password(class="form-control") }}
+            </div>
+            <div class="form-group">
+              <strong>
+                {{ form.pwd_confirm.label }}
+              </strong>
+              {{ form.pwd_confirm(class="form-control") }}
+            </div>
+            {{ form.submit(disabled=True, class="btn btn-warning") }}
+          </form>
+        </div>
     </div>
 {% endblock %}
