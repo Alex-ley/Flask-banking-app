@@ -159,6 +159,8 @@ def my_account():
     withdraw_form = WithdrawForm()
     deposit_form = DepositForm()
     transfer_form = TransferForm()
+    if session['username'] is None:
+        return render_template('my_account.html')
     user = session['username']
     account = Account.query.filter_by(name=user).first()
     transactions = Transaction.query.filter_by(account_id=account.id).order_by(Transaction.date.desc())
