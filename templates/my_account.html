@@ -54,6 +54,7 @@
 
       {% else %}
         <h1>Please log in!</h1>
+        <a href="{{ url_for('index') }}"></a>
       {% endif %}
     </div>
     <script>
@@ -66,6 +67,7 @@
 
       account_id.onkeyup = function(){
         if (account_id.value == '') {
+          account_id.style.borderColor = '#ced4da';
           checker.innerHTML = '';
           transfer.disabled = true;
         } else{
@@ -74,10 +76,12 @@
 
               checker.innerHTML = data.account;
               if (data.account == 'valid account ID'){
-                checker.style.color = 'green';
+                account_id.style.borderColor = '#28a745';
+                checker.style.color = '#28a745';
                 transfer.disabled = false;
               } else{
-                checker.style.color = 'red';
+                account_id.style.borderColor = '#dc3545';
+                checker.style.color = '#dc3545';
                 transfer.disabled = true;
               }
             });
