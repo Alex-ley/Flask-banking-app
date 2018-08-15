@@ -2,15 +2,14 @@
 {% block content %}
     <div class="jumbotron">
       {% if session['username'] %}
-
         <h1>Welcome to your bank account!</h1>
         <br/>
-        <h4>Your Account ID {{ account.id }} has a balance of $ {{ account.balance }}</h4>
+        <!-- <h4>Your Account ID {{ account.id }} has a balance of $ {{ account.balance }}</h4>
         <hr>
         <h4>Deposit Money</h4>
         <div style="max-width: 450px;">
           <form method="POST">
-            {{ deposit_form.hidden_tag()}}
+            {{ deposit_form.hidden_tag() }}
             <div class="form-group">
               <strong>
                 {{ deposit_form.amount.label }}
@@ -23,7 +22,7 @@
         <h4>Withdraw Money</h4>
         <div style="max-width: 450px;">
           <form method="POST">
-            {{ withdraw_form.hidden_tag()}}
+            {{ withdraw_form.hidden_tag() }}
             <div class="form-group">
               <strong>
                 {{ withdraw_form.amount.label }}
@@ -36,7 +35,7 @@
         <h4>Transfer Money</h4>
         <div style="max-width: 450px;">
           <form method="POST">
-            {{ transfer_form.hidden_tag()}}
+            {{ transfer_form.hidden_tag() }}
             <div class="form-group">
               <strong>
                 {{ transfer_form.account_id.label }}
@@ -88,7 +87,7 @@
             </tr>
             {% endfor %}
           </tbody>
-        </table>
+        </table> -->
 
       {% else %}
         <h1>Please log in!</h1>
