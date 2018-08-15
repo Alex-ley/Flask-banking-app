@@ -3,33 +3,27 @@
     <div class="jumbotron">
         <h1>Create a bank account today!</h1>
         <div style="max-width: 450px;">
-          <form method="POST" style="max-width: 300px;">
+          <form method="POST">
             {{ form.hidden_tag()}}
-            <div class="form-group">
+            <div class="form-group" style="max-width: 300px;">
               <strong>
                 {{ form.name.label }}
               </strong>
               {{ form.name(class="form-control") }} <span id="name-checker" style="float: left;"></span>
             </div>
-            <div class="form-group" style="clear: both;">
+            <div class="form-group" style="clear: both; max-width: 300px;">
               <strong>
                 {{ form.balance.label }}
               </strong>
               {{ form.balance(class="form-control") }}
             </div>
-            <div class="form-group">
+            <div class="form-group" style="max-width: 300px;">
               <strong>
                 {{ form.password.label }}
               </strong>
               {{ form.password(class="form-control") }}
             </div>
-            <div class="form-group">
-              <strong>
-                {{ form.pwd_confirm.label }}
-              </strong>
-              {{ form.pwd_confirm(class="form-control") }}
-            </div>
-            <div class="form-group">
+            <div class="form-group" style="max-width: 300px;">
               <strong>
                 {{ form.pwd_confirm.label }}
               </strong>
