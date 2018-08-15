@@ -4,11 +4,37 @@
         <h1>Create a bank account today!</h1>
         <form method="POST">
           {{ form.hidden_tag()}}
-          {{ form.name.label }}{{ form.name() }} <span id="name-checker"></span><br/>
-          {{ form.balance.label }}{{ form.balance() }} <br/>
-          {{ form.password.label }}{{ form.password() }} <br/>
-          {{ form.pwd_confirm.label }}{{ form.pwd_confirm() }} <br/>
-          {{ form.submit(disabled=True) }}
+          <div class="form-group">
+            <strong>
+              {{ form.name.label }}
+            </strong>
+            {{ form.name(class="form-control") }} <span id="name-checker"></span>
+          </div>
+          <div class="form-group">
+            <strong>
+              {{ form.balance.label }}
+            </strong>
+            {{ form.balance(class="form-control") }}
+          </div>
+          <div class="form-group">
+            <strong>
+              {{ form.password.label }}
+            </strong>
+            {{ form.password(class="form-control") }}
+          </div>
+          <div class="form-group">
+            <strong>
+              {{ form.pwd_confirm.label }}
+            </strong>
+            {{ form.pwd_confirm(class="form-control") }}
+          </div>
+          <div class="form-group">
+            <strong>
+              {{ form.pwd_confirm.label }}
+            </strong>
+            {{ form.pwd_confirm(class="form-control") }}
+          </div>
+          {{ form.submit(disabled=True, class="btn btn-success") }}
         </form>
     </div>
     <script>
