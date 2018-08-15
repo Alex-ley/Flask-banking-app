@@ -22,14 +22,24 @@
         <h3>Transfer Money</h3>
         <form method="POST">
           {{ transfer_form.hidden_tag()}}
-          {{ transfer_form.account_id.label }}{{ transfer_form.account_id() }} <span id="id-checker"></span><br/>
-          {{ transfer_form.amount.label }}{{ transfer_form.amount() }}<br/>
-          {{ transfer_form.password.label }}{{ transfer_form.password() }}<br/>
-          {{ transfer_form.transfer(disabled=True) }}
+          <div class="form-group">
+            <strong>{{ transfer_form.account_id.label }}</strong>
+            {{ transfer_form.account_id(class="form-control") }}
+            <small id="id-checker"></small>
+          </div>
+          <div class="form-group">
+            <strong>{{ transfer_form.amount.label }}</strong>
+            {{ transfer_form.amount(class="form-control") }}
+          </div>
+          <div class="form-group">
+            <strong>{{ transfer_form.password.label }}</strong>
+            {{ transfer_form.password(class="form-control") }}
+          </div>
+          {{ transfer_form.transfer(disabled=True, class="btn btn-primary") }}
         </form>
         <hr>
         <h2>Your transactions</h2>
-        <table class="table">
+        <table class="table" id="transactions-table" style="font-size:2vw;"> <!-- 2vw = 2 times view width (dynmaic text size) -->
           <thead>
             <tr>
               <!-- <th scope="col">#</th> -->
