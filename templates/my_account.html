@@ -10,7 +10,7 @@
         <h4>Deposit Money</h4>
         <div style="max-width: 450px;">
           <form method="POST">
-            {{ withdraw_form.hidden_tag()}}
+            {{ deposit_form.hidden_tag()}}
             <div class="form-group">
               <strong>
                 {{ deposit_form.amount.label }}
@@ -58,9 +58,9 @@
             </div>
             <div class="form-group">
               <strong>
-                {{ form.pwd_confirm.label }}
+                {{ transfer_form.pwd_confirm.label }}
               </strong>
-              {{ form.pwd_confirm(class="form-control") }}
+              {{ transfer_form.pwd_confirm(class="form-control") }}
             </div>
             {{ transfer_form.transfer(disabled=True, class="btn btn-primary") }}
           </form>
