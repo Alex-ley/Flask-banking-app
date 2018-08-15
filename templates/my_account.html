@@ -32,7 +32,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <!-- <th scope="col">#</th> -->
               <th scope="col">Type</th>
               <th scope="col">Description</th>
               <th scope="col">Amount</th>
@@ -42,7 +42,7 @@
           <tbody>
             {% for transaction in transactions %}
             <tr>
-              <th scope="row">{{ transaction.id }}</th>
+              <!-- <th scope="row">{{ transaction.id }}</th> -->
               <td>{{ transaction.transaction_type }}</td>
               <td>{{ transaction.description }}</td>
               <td>${{ transaction.amount }}</td>
@@ -54,7 +54,7 @@
 
       {% else %}
         <h1>Please log in!</h1>
-        <a href="{{ url_for('index') }}"></a>
+        <a href="{{ url_for('login') }}"></a>
       {% endif %}
     </div>
     <script>
