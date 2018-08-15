@@ -5,11 +5,11 @@
 
         <h1>Welcome to your bank account!</h1>
         <br/>
-        <h2>Your Account ID {{ account.id }} has a balance of $ {{ account.balance }}</h2>
+        <h4>Your Account ID {{ account.id }} has a balance of $ {{ account.balance }}</h4>
         <hr>
         <div class="row">
           <div class="col-md-6">
-            <h3>Deposit Money</h3>
+            <h4>Deposit Money</h4>
             <form method="POST">
               {{ deposit_form.hidden_tag()}}
               <div class="form-group">
@@ -21,7 +21,7 @@
             </form>
           </div>
           <div class="col-md-6">
-            <h3>Withdraw Money</h3>
+            <h4>Withdraw Money</h4>
             <form method="POST">
               {{ withdraw_form.hidden_tag()}}
               <div class="form-group">
@@ -33,7 +33,7 @@
             </form>
           </div>
           <div class="col-md-6">
-            <h3>Transfer Money</h3>
+            <h4>Transfer Money</h4>
             <form method="POST">
               {{ transfer_form.hidden_tag()}}
               <div class="form-group">
@@ -54,7 +54,7 @@
           </div>
         </div>
         <hr>
-        <h2>Your transactions</h2>
+        <h4>Your transactions</h4>
         <table class="table" id="transactions-table" style="text-align: left;"> <!-- 2vw = 2 times view width (dynmaic text size) -->
           <thead>
             <tr>
