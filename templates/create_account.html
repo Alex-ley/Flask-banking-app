@@ -44,6 +44,7 @@
 
       name.onkeyup = function(){
         if (name.value == '') {
+          name.style.borderColor = '#ced4da';
           checker.innerHTML = '';
           submit.disabled = true;
         } else{
@@ -52,9 +53,11 @@
 
               checker.innerHTML = data.name;
               if (data.name == 'available'){
+                name.style.borderColor = '#28a745';
                 checker.style.color = 'green';
                 submit.disabled = false;
               } else{
+                name.style.borderColor = '#dc3545';
                 checker.style.color = 'red';
                 submit.disabled = true;
               }
