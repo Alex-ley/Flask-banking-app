@@ -159,16 +159,9 @@ def my_account():
     withdraw_form = WithdrawForm()
     deposit_form = DepositForm()
     transfer_form = TransferForm()
-    try:
-        user = session['username']
-        account = Account.query.filter_by(name=user).first()
-        transactions = Transaction.query.filter_by(account_id=account.id).order_by(Transaction.date.desc())
-    except Exception as e:
-        raise Exception
-    else:
-        user = None
-        account = None
-        transactions = None
+    user = session['username']
+    account = Account.query.filter_by(name=user).first()
+    transactions = Transaction.query.filter_by(account_id=account.id).order_by(Transaction.date.desc())
 
     if deposit_form.deposit.data and deposit_form.validate():
         id = account.id
