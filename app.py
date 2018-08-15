@@ -163,6 +163,8 @@ def my_account():
         user = session['username']
         account = Account.query.filter_by(name=user).first()
         transactions = Transaction.query.filter_by(account_id=account.id).order_by(Transaction.date.desc())
+    except Exception as e:
+        raise Exception
     else:
         user = None
         account = None
